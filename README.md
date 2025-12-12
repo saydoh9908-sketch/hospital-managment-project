@@ -150,38 +150,6 @@ TROUBLESHOOTING
    - Run: python manage.py collectstatic
    - Make sure DEBUG=True in settings.py for development
 
-PROJECT STRUCTURE
-=================
-
-hospital_project/
-├── manage.py                 # Django management script
-├── requirements.txt          # Python dependencies
-├── guide.txt                 # This setup guide
-├── hospital_project/         # Main Django project settings
-│   ├── settings.py          # Project configuration (MongoDB database)
-│   ├── urls.py              # URL routing
-│   ├── wsgi.py              # WSGI configuration
-│   └── asgi.py              # ASGI configuration
-├── main/                     # Main Django app
-│   ├── models.py            # Database models (Patient, Doctor, Appointment)
-│   ├── views.py             # View functions and business logic
-│   ├── forms.py             # Django forms for registration and appointments
-│   ├── urls.py              # App URL routing
-│   ├── admin.py             # Django admin configuration
-│   ├── migrations/          # Database migration files
-│   └── templates/main/      # HTML templates
-│       ├── base.html        # Base template with Bootstrap
-│       ├── home.html        # Homepage
-│       ├── login.html       # Login page
-│       ├── appointment_list.html  # Appointments list (role-based)
-│       ├── appointment_form.html  # Schedule appointment form
-│       ├── edit_appointment.html  # Edit appointment form
-│       ├── patient_list.html      # Patient management
-│       ├── doctor_list.html       # Doctor management
-│       ├── patient_register.html  # Patient registration
-│       ├── doctor_register.html   # Doctor registration
-│       └── patient_form.html      # Patient form template
-└── venv/                     # Python virtual environment (created during setup)
 
 FEATURES
 ========
