@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Doctors - Hospital Management System{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Our Doctors</h1>
+  </div>
+
+  <!-- --- SEARCH BAR WITH RESET BUTTON --- -->
+  <form method="GET" action="{% url 'doctor_list' %}" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="q" class="form-control" placeholder="Search by name or specialization..." value="{{ request.GET.q }}">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+      <!-- --- NEW RESET BUTTON --- -->
+      <a href="{% url 'doctor_list' %}" class="btn btn-outline-secondary">Reset</a>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for doctor in doctors %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h5>
+            <p class="card-text">
+              <strong>Specialization:</strong> {{ doctor.specialization }}<br>
+              <strong>Email:</strong> {{ doctor.user.email }}<br>
+              <strong>Phone:</strong> {{ doctor.phone }}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col">
+        <div class="alert alert-warning" role="alert">
+          {% if request.GET.q %}
+            No doctors found for your search: "{{ request.GET.q }}".
+          {% else %}
+            No doctors found. <a href="{% url 'doctor_register' %}">Register one now!</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

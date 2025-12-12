@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>{% block title %}Hospital Management System{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><strong>Hospital System</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <span class="navbar-text me-3">Hello, {{ user.first_name }}!</span>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="{% url 'patient_list' %}">Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'doctor_list' %}">Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'appointment_list' %}">Appointments</a>
+            </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Register
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'patient_register' %}">As Patient</a></li>
+                  <li><a class="dropdown-item" href="{% url 'doctor_register' %}">As Doctor</a></li>
+                </ul>
+              </li>
+            {% endif %}
+            
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
+    </div>
+    <footer class="bg-light text-center text-lg-start mt-5">
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2025 Hospital Management System
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

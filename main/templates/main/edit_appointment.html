@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Edit Appointment - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Edit Appointment</h4>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="{{ form.doctor.id_for_label }}" class="form-label">Select Doctor</label>
+            {{ form.doctor.errors }}
+            {{ form.doctor }}
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="{{ form.appointment_date.id_for_label }}" class="form-label">{{ form.appointment_date.label }}</label>
+              {{ form.appointment_date.errors }}
+              {{ form.appointment_date }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="{{ form.appointment_time.id_for_label }}" class="form-label">{{ form.appointment_time.label }}</label>
+              {{ form.appointment_time.errors }}
+              {{ form.appointment_time }}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.reason.id_for_label }}" class="form-label">Reason for Visit</label>
+            {{ form.reason.errors }}
+            {{ form.reason }}
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'appointment_list' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Update Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+{% block title %}Doctor Registration{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Doctor Registration</h4>
+      </div>
+      <div class="card-body">
+        <!-- Display form errors as alerts -->
+        {% if user_form.errors or profile_form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Registration Failed!</strong> Please correct the errors below:
+          <ul class="mb-0 mt-2">
+            {% for field, errors in user_form.errors.items %}
+              {% for error in errors %}
+                <li>{% if field != '__all__' %}<strong>{{ field|title }}:</strong> {% endif %}{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+            {% for field, errors in profile_form.errors.items %}
+              {% for error in errors %}
+                <li>{% if field != '__all__' %}<strong>{{ field|title }}:</strong> {% endif %}{{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        
+        <form method="post">
+          {% csrf_token %}
+          <h5 class="border-bottom pb-2 mb-3">Account Details</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.first_name.id_for_label }}" class="form-label">First Name</label>
+              {{ user_form.first_name }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Last Name</label>
+              {{ user_form.last_name }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.username.id_for_label }}" class="form-label">Username</label>
+              {{ user_form.username }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.email.id_for_label }}" class="form-label">Email</label>
+              {{ user_form.email }}
+              {% if user_form.email.errors %}
+                <div class="text-danger small mt-1">
+                  {% for error in user_form.email.errors %}
+                    {{ error }}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.password.id_for_label }}" class="form-label">Password</label>
+              {{ user_form.password }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="{{ user_form.confirm_password.id_for_label }}" class="form-label">Confirm Password</label>
+              {{ user_form.confirm_password }}
+            </div>
+          </div>
+
+          <h5 class="border-bottom pb-2 mb-3 mt-4">Professional Information</h5>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="{{ profile_form.specialization.id_for_label }}" class="form-label">Specialization</label>
+              {{ profile_form.specialization }}
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="{{ profile_form.phone.id_for_label }}" class="form-label">Phone Number</label>
+              {{ profile_form.phone }}
+            </div>
+          </div>
+          
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success btn-lg">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

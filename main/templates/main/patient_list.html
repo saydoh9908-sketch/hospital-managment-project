@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Patients - Hospital Management System{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">All Patients</h1>
+  </div>
+
+  <!-- --- SEARCH BAR WITH RESET BUTTON --- -->
+  <form method="GET" action="{% url 'patient_list' %}" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="q" class="form-control" placeholder="Search by name or blood type..." value="{{ request.GET.q }}">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+      <!-- --- NEW RESET BUTTON --- -->
+      <a href="{% url 'patient_list' %}" class="btn btn-outline-secondary">Reset</a>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Full Name</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Blood Type</th>
+          <th scope="col">Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+          <tr>
+            <td><strong>{{ patient.user.first_name }} {{ patient.user.last_name }}</strong></td>
+            <td>{{ patient.date_of_birth }}</td>
+            <td><span class="badge bg-danger">{{ patient.blood_type }}</span></td>
+            <td>{{ patient.user.email }}<br>{{ patient.phone }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" class="text-center">
+              {% if request.GET.q %}
+                No patients found for your search: "{{ request.GET.q }}".
+              {% else %}
+                No patients found. <a href="{% url 'patient_register' %}">Register one now!</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
